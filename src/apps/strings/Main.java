@@ -1,7 +1,7 @@
 package apps.strings;
 /*
  * @author Oleg Rudoi
- * @version 1.0
+ * @version 1.1
  * @date 30.07.2022
  */
 
@@ -9,14 +9,20 @@ import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) {
-        // first hometask
+        // first task
+        System.out.println(wordsCount(""));
+        System.out.println(wordsCount(" "));
         System.out.println(wordsCount("Hello world"));
+        System.out.println(wordsCount("  Hello   world  "));
         System.out.println(wordsCount("I love java!"));
 
-        // second hometask
+        // second task
+        System.out.println(isPalindrome(""));
+        System.out.println(isPalindrome(" "));
         System.out.println(isPalindrome("ERE"));
         System.out.println(isPalindrome("Allo"));
         System.out.println(isPalindrome("Madam, I'm Adam"));
+        System.out.println(isPalindrome("  Madam, I'm Adam"));
     }
 
     /**
@@ -26,7 +32,11 @@ public class Main {
      * @return the number of words in a phrase
      */
     private static int wordsCount(String input) {
-        String[] words = input.split(" ");
+        if (input.isEmpty() || input.equals(" ")) {
+            return 0;
+        }
+
+        String[] words = input.trim().split("\\s+");
         return words.length;
     }
 
@@ -37,6 +47,10 @@ public class Main {
      * @return true if so, otherwise - false.
      */
     private static boolean isPalindrome(String input) {
+        if (input.isEmpty() || input.equals(" ")) {
+            return false;
+        }
+
         String symbols = input.toLowerCase(Locale.ROOT).replaceAll("\\W", "");
 
         for (int i = 0; i < symbols.length() / 2; i++) {
