@@ -2,7 +2,6 @@ package apps.inheritance;
 
 public class Cat extends Animal {
     private static int count;
-    private String name;
     private static final int MAX_RUN_DISTANCE = 200;
     private static final int MAX_SWIM_DISTANCE = 0;
     private static final String UNIT_OF_MEASUREMENT = "m";
@@ -12,7 +11,7 @@ public class Cat extends Animal {
     }
 
     public Cat(String name) {
-        this.name = validateName(name);
+        super(name);
         count++;
     }
 
@@ -21,17 +20,7 @@ public class Cat extends Animal {
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = validateName(name);
-    }
-
-    @Override
-    public String run (int distance) {
+    public String run(int distance) {
         if (distance > 0 && distance <= MAX_RUN_DISTANCE) {
             return getName() + " ran " + distance + " "
                     + UNIT_OF_MEASUREMENT + ".";
@@ -46,7 +35,7 @@ public class Cat extends Animal {
     }
 
     @Override
-    public String swim (int distance) {
+    public String swim(int distance) {
         if (distance >= MAX_SWIM_DISTANCE) {
             return "Oh no! But cats can't swim!";
         }

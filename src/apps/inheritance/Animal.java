@@ -2,7 +2,7 @@ package apps.inheritance;
 
 public class Animal {
     private static int count;
-    private String name;
+    protected String name;
     private static final String UNIT_OF_MEASUREMENT = "m";
 
     public Animal() {
@@ -26,7 +26,7 @@ public class Animal {
         this.name = validateName(name);
     }
 
-    public String run (int distance) {
+    public String run(int distance) {
         if (distance > 0) {
             return getName() + " ran " + distance + " "
                     + UNIT_OF_MEASUREMENT + ".";
@@ -35,7 +35,7 @@ public class Animal {
         return "Sorry, maybe you input an invalid value...";
     }
 
-    public String swim (int distance) {
+    public String swim(int distance) {
         if (distance > 0) {
             return getName() + " swam " + distance + " "
                     + UNIT_OF_MEASUREMENT + ".";

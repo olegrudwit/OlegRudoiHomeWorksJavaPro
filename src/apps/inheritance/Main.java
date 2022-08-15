@@ -1,7 +1,6 @@
 package apps.inheritance;
 
 public class Main {
-    public Dog dog;
     public static void main(String[] args) {
 
         Cat cat1 = new Cat("Luna");
@@ -49,5 +48,8 @@ public class Main {
                 %s
                 """,
                 duck.getName(), duck.run(1000), duck.swim(2000));
+
+        System.out.println();
+        System.out.println("Animals total: " + Animal.getCount());
     }
 }
