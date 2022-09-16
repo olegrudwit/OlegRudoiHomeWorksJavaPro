@@ -1,0 +1,4 @@
+FILE: F:/Hillel-JP-2022/Project/OlegRudoiHomeWorksJavaPro/src/log/
+LEVEL: DEBUG
+MAX-SIZE: 8
+FORMAT: TXT
