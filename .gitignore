@@ -6,3 +6,10 @@ target/
 .idea
 out/
 *.iml
+src/log
+/ FLog_2022.09.16_18-36-16.TXT
+/ Log_2022.09.16_18-36-58.TXT
+/ Log_2022.09.16_18-38-10.TXT
+/src/logLog_2022.09.16_18-49-59.TXT
+/nullLog_2022.09.16_17-38-47.null
+/nullLog_2022.09.16_18-10-01.null
