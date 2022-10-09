@@ -2,6 +2,8 @@ package apps.streams;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Oleg Rudoi
@@ -9,27 +11,43 @@ import java.time.format.DateTimeFormatter;
  */
 
 class Product {
+    public static List<Product> products = new ArrayList<>();
+    public String name;
     public String type;
     public double price;
     public boolean isDiscounted;
     public double discount;
     public LocalDateTime date;
 
-    public Product(String type, double price) {
+    public Product(String name) {
+        this.name = name;
+        products.add(this);
+    }
+
+    public Product(String name, String type, double price) {
+        this(name);
         this.type = type;
         this.price = price;
     }
 
-    public Product(String type, double price, boolean isDiscounted) {
-        this(type, price);
+    public Product(String name, String type, double price, boolean isDiscounted) {
+        this(name, type, price);
         this.isDiscounted = isDiscounted;
     }
 
-    public Product(String type, double price, boolean isDiscounted, boolean isDate) {
-        this(type, price, isDiscounted);
+    public Product(String name, String type, double price, boolean isDiscounted, boolean isDate) {
+        this(name, type, price, isDiscounted);
         if (isDate) {
             this.date = LocalDateTime.now();
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getType() {
