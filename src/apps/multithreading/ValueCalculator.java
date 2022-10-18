@@ -46,7 +46,7 @@ public class ValueCalculator {
 
         // split into 2 arrays
         System.arraycopy(array, 0, a1, 0, lengthHalf);
-        System.arraycopy(array, lengthHalf - 1, a2, 0, lengthHalf);
+        System.arraycopy(array, lengthHalf, a2, 0, lengthHalf);
 
         // calculations in first array
         Runnable runnable1 = () -> {
