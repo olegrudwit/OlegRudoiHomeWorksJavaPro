@@ -49,23 +49,11 @@ public class ValueCalculator {
         System.arraycopy(array, lengthHalf, a2, 0, lengthHalf);
 
         // calculations in first array
-        Runnable runnable1 = () -> {
-            for (int i = 0; i < a1.length; i++) {
-                a1[i] = (float) (a1[i] * Math.sin(0.2f + i / 5) *
-                        Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-            }
-        };
-        Thread thread1 = new Thread(runnable1);
+        Thread thread1 = calcInThread(a1);
         thread1.start();
 
         // calculations in second array
-        Runnable runnable2 = () -> {
-            for (int i = 0; i < a2.length; i++) {
-                a2[i] = (float) (a2[i] * Math.sin(0.2f + i / 5) *
-                        Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-            }
-        };
-        Thread thread2 = new Thread(runnable2);
+        Thread thread2 = calcInThread(a2);
         thread2.start();
 
         // wait to complete all calculations in threads
@@ -80,5 +68,16 @@ public class ValueCalculator {
         long end = System.currentTimeMillis();
         long time = end - start;
         System.out.println(time);
+    }
+
+    @SuppressWarnings("IntegerDivisionInFloatingPointContext")
+    private Thread calcInThread(double[] array) {
+        Runnable runnable = () -> {
+            for (int i = 0; i < array.length; i++) {
+                array[i] = (float) (array[i] * Math.sin(0.2f + i / 5) *
+                        Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+            }
+        };
+        return new Thread(runnable);
     }
 }
