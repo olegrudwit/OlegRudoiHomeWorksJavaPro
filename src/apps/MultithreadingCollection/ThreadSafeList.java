@@ -6,24 +6,24 @@ package apps.MultithreadingCollection;
  * @author Oleg Rudoi
  * @version 1.0 30 Oct 2022
  */
-public class ThreadSafeList {
-    private static final int INITIAL_SIZE = 16;
-    private static final int STEP_INCREASE = INITIAL_SIZE / 2;
-    private String[] arr;
+public class ThreadSafeList<E> {
+    private static final int DEFAULT_SIZE = 16;
+    private static final double STEP_INCREASE = 1.5;
+    private Object[] arr;
     private int indexCounter;
 
     /**
      * calls the initialization method of the new array
      */
     public ThreadSafeList() {
-        initArray();
+        initInternalArray();
     }
 
     /**
      * initializes the array from the constructor with constant values
      */
-    private void initArray() {
-        arr = new String[INITIAL_SIZE];
+    private void initInternalArray() {
+        arr = new Object[DEFAULT_SIZE];
         indexCounter = 0;
     }
 
@@ -33,7 +33,7 @@ public class ThreadSafeList {
      * @param value element value
      * @return true after a successful operation
      */
-    public boolean add(String value) {
+    public boolean add(E value) {
         synchronized (this) {
             /* to call the array length expand method, If the array is completely filled */
             if (indexCounter == arr.length) {
@@ -56,7 +56,7 @@ public class ThreadSafeList {
      */
     public boolean remove(int index) {
         synchronized (this) {
-            String[] arrNew = new String[arr.length - 1];
+            Object[] arrNew = new Object[arr.length - 1];
             System.arraycopy(arr, 0, arrNew, 0, index);
             System.arraycopy(arr, (index + 1), arrNew, index, (arr.length - index - 1));
             arr = arrNew;
@@ -70,12 +70,9 @@ public class ThreadSafeList {
      * @param index required index of element
      * @return value of required element
      */
-    public String get(int index) {
-        String value;
-        synchronized (this) {
-            value = arr[index];
-        }
-        return value;
+    @SuppressWarnings("unchecked")
+    public synchronized E get(int index) {
+            return (E) arr[index];
     }
 
     /**
@@ -85,7 +82,8 @@ public class ThreadSafeList {
      * then assigned to the general array.
      */
     private void expandArray() {
-        String[] arrNew = new String[arr.length + STEP_INCREASE];
+        int newLength = (int) (arr.length * STEP_INCREASE);
+        Object[] arrNew = new Object[newLength];
         System.arraycopy(arr, 0, arrNew, 0, arr.length);
         arr = arrNew;
     }
