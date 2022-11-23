@@ -2,9 +2,10 @@ package apps.MultithreadingCollection;
 
 /**
  * The class implements a thread-safe collection
+ * Has methods add, get and remove.
  *
  * @author Oleg Rudoi
- * @version 1.0 30 Oct 2022
+ * @version 1.1 21 Nov 2022
  */
 public class ThreadSafeList<E> {
     private static final int DEFAULT_SIZE = 16;
@@ -62,6 +63,22 @@ public class ThreadSafeList<E> {
             arr = arrNew;
         }
         return true;
+    }
+
+    /**
+     * removes an element from the array by value.
+     * If value found, calls method remove an element by index.
+     *
+     * @param value required element
+     * @return true after a successful operation
+     */
+    public boolean remove(E value) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals(value)) {
+                return remove(i);
+            }
+        }
+        return false;
     }
 
     /**

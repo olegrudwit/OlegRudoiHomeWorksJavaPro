@@ -1,19 +1,41 @@
 package apps.MultithreadingCollection;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  *  @author Oleg Rudoi
- *  @version 1.0 02 Nov 2022
+ *  @version 1.0 23 Nov 2022
  */
 public class Main {
     public static void main(String[] args) {
+        System.out.println("Task 0:");
+        extractedTask0();
+
+        System.out.println("\n------------\nTask 1:");
+        extractedTask1();
+    }
+
+    private static void extractedTask1() {
+        PetrolStation petrolStation = new PetrolStation(1000);
+
+        // make 30 refueling requests
+        for (int i = 30; i > 0; i--) {
+            petrolStation.doRefuel(ThreadLocalRandom.current().nextInt(50, 250));
+        }
+    }
+
+    private static void extractedTask0() {
         ThreadSafeList<String> list = new ThreadSafeList<>();
 
         int iterationsQnty = 10000;
 
         // adding values in collection by 3 threads
-        Thread thread1 = getThreadForCalc(list, iterationsQnty, "1");
-        Thread thread2 = getThreadForCalc(list, iterationsQnty, "2");
-        Thread thread3 = getThreadForCalc(list, iterationsQnty, "3");
+//        Thread thread1 = getThreadForCalc(list, iterationsQnty, "1");
+//        Thread thread2 = getThreadForCalc(list, iterationsQnty, "2");
+//        Thread thread3 = getThreadForCalc(list, iterationsQnty, "3");
+        Thread thread1 = getThreadForCalc(list, 10000, "1");
+        Thread thread2 = getThreadForCalc(list, 10000, "2");
+        Thread thread3 = getThreadForCalc(list, 10000, "3");
         thread1.start();
         thread2.start();
         thread3.start();
@@ -41,7 +63,7 @@ public class Main {
     }
 
     /**
-     * Initialize runbl to create thread.
+     * Initialize runnable to create thread.
      * Add a value to the collection a certain number of times
      *
      * @param list general collection
@@ -51,7 +73,8 @@ public class Main {
      */
     private static Thread getThreadForCalc(ThreadSafeList<String> list, int qnty, String value) {
         Runnable runnable = () -> {
-            for (int i = 0; i < qnty; i++) {
+            // for (int i = 0; i < qnty; i++) {
+            for (int i = 0; i < 10000; i++) {
                 list.add(value);
             }
         };
