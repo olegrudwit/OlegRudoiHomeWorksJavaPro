@@ -15,27 +15,15 @@ public class Main {
         extractedTask1();
     }
 
-    private static void extractedTask1() {
-        PetrolStation petrolStation = new PetrolStation(1000);
-
-        // make 30 refueling requests
-        for (int i = 30; i > 0; i--) {
-            petrolStation.doRefuel(ThreadLocalRandom.current().nextInt(50, 250));
-        }
-    }
-
     private static void extractedTask0() {
         ThreadSafeList<String> list = new ThreadSafeList<>();
 
         int iterationsQnty = 10000;
 
         // adding values in collection by 3 threads
-//        Thread thread1 = getThreadForCalc(list, iterationsQnty, "1");
-//        Thread thread2 = getThreadForCalc(list, iterationsQnty, "2");
-//        Thread thread3 = getThreadForCalc(list, iterationsQnty, "3");
-        Thread thread1 = getThreadForCalc(list, 10000, "1");
-        Thread thread2 = getThreadForCalc(list, 10000, "2");
-        Thread thread3 = getThreadForCalc(list, 10000, "3");
+        Thread thread1 = getThreadForCalc(list, iterationsQnty, "1");
+        Thread thread2 = getThreadForCalc(list, iterationsQnty, "2");
+        Thread thread3 = getThreadForCalc(list, iterationsQnty, "3");
         thread1.start();
         thread2.start();
         thread3.start();
@@ -79,5 +67,14 @@ public class Main {
             }
         };
         return new Thread(runnable);
+    }
+
+    private static void extractedTask1() {
+        PetrolStation petrolStation = new PetrolStation(1000);
+
+        // make 30 refueling requests
+        for (int i = 30; i > 0; i--) {
+            petrolStation.doRefuel(ThreadLocalRandom.current().nextInt(50, 250));
+        }
     }
 }
