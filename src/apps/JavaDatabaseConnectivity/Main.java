@@ -60,17 +60,17 @@ public class Main {
 
     private static List<Book> extractedTask1() {
         List<Book> books = new ArrayList<>();
+        String sql = "SELECT \n" +
+                "`b`.`id` AS bookID, \n" +
+                "`b`.`title` AS bookTitle, \n" +
+                "`b`.`author_id` AS authorID, \n" +
+                "`a`.`name` AS authorName, \n" +
+                "`a`.`last_name` AS authorLastName \n" +
+                "FROM `books` AS `b`\n" +
+                "LEFT JOIN `authors` AS `a` ON `b`.`author_id` = `a`.`id`;";
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()) {
-            String sql = "SELECT \n" +
-                    "`b`.`id` AS bookID, \n" +
-                    "`b`.`title` AS bookTitle, \n" +
-                    "`b`.`author_id` AS authorID, \n" +
-                    "`a`.`name` AS authorName, \n" +
-                    "`a`.`last_name` AS authorLastName \n" +
-                    "FROM `books` AS `b`\n" +
-                    "LEFT JOIN `authors` AS `a` ON `b`.`author_id` = `a`.`id`;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -96,12 +96,13 @@ public class Main {
 
     private static List<Book> extractedTask2() {
         List<Book> books = new ArrayList<>();
+        String sql = "SELECT \n" +
+                "`b`.`id` AS bookID, \n" +
+                "`b`.`title` AS bookTitle\n" +
+                "FROM `books` AS `b` WHERE `author_id` IS NULL;";
+
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()) {
-            String sql = "SELECT \n" +
-                    "`b`.`id` AS bookID, \n" +
-                    "`b`.`title` AS bookTitle\n" +
-                    "FROM `books` AS `b` WHERE `author_id` IS NULL;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -121,16 +122,17 @@ public class Main {
 
     private static Map<Author, Integer> extractedTask3() {
         Map<Author, Integer> counts = new HashMap<>();
+        String sql = "SELECT \n" +
+                "`a`.`id` AS authorID, \n" +
+                "`a`.`name` AS authorName, \n" +
+                "`a`.`last_name` AS authorLastName ,\n" +
+                "COUNT(*) AS count\n" +
+                "FROM `books` AS `b`\n" +
+                "JOIN `authors` AS `a` ON `b`.`author_id` = `a`.`id`\n" +
+                "GROUP BY `author_id`;";
+
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()) {
-            String sql = "SELECT \n" +
-                    "`a`.`id` AS authorID, \n" +
-                    "`a`.`name` AS authorName, \n" +
-                    "`a`.`last_name` AS authorLastName ,\n" +
-                    "COUNT(*) AS count\n" +
-                    "FROM `books` AS `b`\n" +
-                    "JOIN `authors` AS `a` ON `b`.`author_id` = `a`.`id`\n" +
-                    "GROUP BY `author_id`;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -153,16 +155,17 @@ public class Main {
 
     private static Map<Author, Integer> extractedTask4() {
         Map<Author, Integer> counts = new HashMap<>();
+        String sql = "SELECT \n" +
+                "`a`.`id` AS authorID, \n" +
+                "`a`.`name` AS authorName, \n" +
+                "`a`.`last_name` AS authorLastName ,\n" +
+                "COUNT(*) AS counter\n" +
+                "FROM `books` AS `b`\n" +
+                "JOIN `authors` AS `a` ON `b`.`author_id` = `a`.`id`\n" +
+                "GROUP BY `author_id` HAVING counter > 2;";
+
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()) {
-            String sql = "SELECT \n" +
-                    "`a`.`id` AS authorID, \n" +
-                    "`a`.`name` AS authorName, \n" +
-                    "`a`.`last_name` AS authorLastName ,\n" +
-                    "COUNT(*) AS counter\n" +
-                    "FROM `books` AS `b`\n" +
-                    "JOIN `authors` AS `a` ON `b`.`author_id` = `a`.`id`\n" +
-                    "GROUP BY `author_id` HAVING counter > 2;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
