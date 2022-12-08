@@ -110,11 +110,13 @@ public class Main {
     }
 
     private static void extractedTask1() {
-        PetrolStation petrolStation = new PetrolStation(1000);
+        PetrolStation petrolStation = new PetrolStation(100000);
 
         // make 30 refueling requests
-        for (int i = 30; i > 0; i--) {
+        for (int i = 8; i > 0; i--) {
             petrolStation.doRefuel(ThreadLocalRandom.current().nextInt(50, 250));
         }
+
+        petrolStation.close();
     }
 }

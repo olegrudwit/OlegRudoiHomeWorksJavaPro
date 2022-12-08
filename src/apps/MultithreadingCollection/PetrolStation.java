@@ -8,7 +8,7 @@ import static java.lang.Thread.sleep;
 
 /**
  *  @author Oleg Rudoi
- *  @version 1.0 23 Nov 2022
+ *  @version 1.1 08 Dec 2022
  */
 public class PetrolStation {
     private double amount;
@@ -103,5 +103,11 @@ public class PetrolStation {
             stationExecutor.shutdownNow();
         }
         return value;
+    }
+
+    public void close() {
+        if (!stationExecutor.isShutdown()) {
+            stationExecutor.shutdown();
+        }
     }
 }
