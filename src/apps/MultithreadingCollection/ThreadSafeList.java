@@ -5,7 +5,7 @@ package apps.MultithreadingCollection;
  * Has methods add, get and remove.
  *
  * @author Oleg Rudoi
- * @version 1.1 21 Nov 2022
+ * @version 1.2 08 Dec 2022
  */
 public class ThreadSafeList<E> {
     private static final int DEFAULT_SIZE = 16;
@@ -72,7 +72,7 @@ public class ThreadSafeList<E> {
      * @param value required element
      * @return true after a successful operation
      */
-    public boolean remove(E value) {
+    public synchronized boolean remove(E value) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].equals(value)) {
                 return remove(i);
@@ -87,9 +87,8 @@ public class ThreadSafeList<E> {
      * @param index required index of element
      * @return value of required element
      */
-    @SuppressWarnings("unchecked")
     public synchronized E get(int index) {
-            return (E) arr[index];
+        return (E) arr[index];
     }
 
     /**
@@ -103,5 +102,9 @@ public class ThreadSafeList<E> {
         Object[] arrNew = new Object[newLength];
         System.arraycopy(arr, 0, arrNew, 0, arr.length);
         arr = arrNew;
+    }
+
+    public synchronized int length() {
+        return arr.length;
     }
 }
