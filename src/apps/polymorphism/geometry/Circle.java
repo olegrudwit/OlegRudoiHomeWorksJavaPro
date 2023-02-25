@@ -8,7 +8,7 @@ package apps.polymorphism.geometry;
 /**
  * Class for a figure, with size for diameter, area calculation method
  */
-public class Circle extends Shape implements Area {
+public class Circle extends Shape {
     private double diameter;
 
     public Circle(double diameter) {
