@@ -1,51 +1,49 @@
 package apps.polymorphism.competition;
 
-public class Human implements Participant {
-    private String name;
+public class Human extends Competitor {
     private double maxRunDistance;
     private double maxJumpHeight;
-    private boolean isCompetitor = true;
+    private boolean isReady = true;
 
     public Human(String name, double maxRunDistance, double maxJumpHeight) {
-        this.name = name;
+        super.name = name;
         this.maxRunDistance = maxRunDistance;
         this.maxJumpHeight = maxJumpHeight;
+    }
+
+    @Override
+    boolean isReadyToNext() {
+        return isReady;
     }
 
     @Override
     public boolean run(double distance) {
         if (distance < 0) {
             System.out.println(distance + " - it's not a real distance. Please check");
-            return false;
         } else if (distance > maxRunDistance) {
-            System.out.println("Human is to tired and failed the competition");
-            return false;
+            System.out.println(name + " is to tired with best result "
+                    + this.maxRunDistance + " and failed the competition");
         } else {
-            System.out.println("Human ran the distance " + distance);
+            System.out.println(name + " ran the distance " + distance);
             return true;
         }
+        isReady = false;
+        return false;
     }
 
     @Override
     public boolean jump(double height) {
         if (height < 0) {
             System.out.println(height + " - it's not a real height. Please check");
-            return false;
         } else if (height > maxJumpHeight) {
-            System.out.println("Human crashed and failed the competition");
-            return false;
+            System.out.println(name + " crashed with best result "
+                    + this.maxJumpHeight + " and failed the competition");
         } else {
-            System.out.println("Human jumped to a height " + height);
+            System.out.println(name + " jumped to a height " + height);
             return true;
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        isReady = false;
+        return false;
     }
 
     public double getMaxRunDistance() {
@@ -64,12 +62,12 @@ public class Human implements Participant {
         this.maxJumpHeight = maxJumpHeight;
     }
 
-    public boolean isCompetitor() {
-        return isCompetitor;
+    public boolean isReady() {
+        return isReady;
     }
 
-    public void setCompetitor(boolean competitor) {
-        isCompetitor = competitor;
+    public void setReady(boolean ready) {
+        isReady = ready;
     }
 
     @Override
@@ -81,7 +79,7 @@ public class Human implements Participant {
 
         if (Double.compare(human.maxRunDistance, maxRunDistance) != 0) return false;
         if (Double.compare(human.maxJumpHeight, maxJumpHeight) != 0) return false;
-        if (isCompetitor != human.isCompetitor) return false;
+        if (isReady != human.isReady) return false;
         return name.equals(human.name);
     }
 
@@ -94,7 +92,7 @@ public class Human implements Participant {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(maxJumpHeight);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (isCompetitor ? 1 : 0);
+        result = 31 * result + (isReady ? 1 : 0);
         return result;
     }
 
@@ -104,7 +102,7 @@ public class Human implements Participant {
                 "name='" + name + '\'' +
                 ", maxRunDistance=" + maxRunDistance +
                 ", maxJumpHeight=" + maxJumpHeight +
-                ", isCompetitor=" + isCompetitor +
+                ", isReady=" + isReady +
                 '}';
     }
 }

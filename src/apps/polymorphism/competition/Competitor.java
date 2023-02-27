@@ -1,8 +1,10 @@
 package apps.polymorphism.competition;
 
-public abstract class Barrier {
+public abstract class Competitor {
     protected String name;
-    abstract boolean overcome(Competitor competitor);
+    abstract boolean isReadyToNext();
+    abstract boolean run(double distance);
+    abstract boolean jump(double height);
 
     public String getName() {
         return name;
