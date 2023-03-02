@@ -2,6 +2,13 @@ package apps.hw7hashMap;
 
 import java.util.Objects;
 
+/**
+ * FileData model class.
+ * Contains information about the time size and path of the file.
+ *
+ * @author Oleg Rudoi
+ * @version 1.1 02 Mar 2023
+ */
 public class FileData {
     private String name;
     private long size;

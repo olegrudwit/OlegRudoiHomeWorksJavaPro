@@ -2,6 +2,13 @@ package apps.hw7hashMap;
 
 import java.util.*;
 
+/**
+ * File Navigator service class.
+ * Contains methods of operations with files.
+ *
+ * @author Oleg Rudoi
+ * @version 1.1 02 Mar 2023
+ */
 public class FileNavigator {
     private final Map<String, List<FileData>> navigator = new HashMap<>();
 
@@ -45,34 +52,11 @@ public class FileNavigator {
 
     public List<FileData> sortBySize() {
         List<FileData> filesAll = new ArrayList<>();
-        for (List<FileData> files : navigator.values()) {
-            filesAll.addAll(files);
-        }
 
-        List<FileData> filesSorted = bubbleSortByFileSize(filesAll.toArray(new FileData[0]));
+        navigator.values().forEach(filesAll::addAll);
+        filesAll.sort(Comparator.comparingLong(FileData::getSize));
 
-        return filesSorted.isEmpty() ? null : filesSorted;
-    }
-
-    public List<FileData> bubbleSortByFileSize(FileData[] array) {
-        if (array.length == 0) {
-            return null;
-        }
-
-        boolean isSorted = false;
-        FileData temp;
-        while(!isSorted) {
-            isSorted = true;
-            for (int i = 0; i < array.length-1; i++) {
-                if (array[i].getSize() > array[i + 1].getSize()) {
-                    temp = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = temp;
-                    isSorted = false;
-                }
-            }
-        }
-        return Arrays.asList(array);
+        return filesAll.isEmpty() ? null : filesAll;
     }
 
     private void addValueToKey(String path, FileData file) {
